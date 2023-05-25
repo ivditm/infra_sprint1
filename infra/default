@@ -1,0 +1,81 @@
+ server {
+    server_name 158.160.65.55 ivditmtaski.myftp.org;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/ivditmtaski.myftp.org/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/ivditmtaski.myftp.org/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+ server {
+    if ($host = ivditmtaski.myftp.org) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+
+    listen 80;
+    server_name 158.160.65.55 ivditmtaski.myftp.org;
+    return 404; # managed by Certbot
+
+
+}
+
+ server {
+    server_name kittigrammivditm.ddns.net;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+    
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8080;
+    }
+    location /media/ {
+        alias /var/www/kittygram/media/;
+    }
+
+    location / {
+        root   /var/www/kittygram;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/kittigrammivditm.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/kittigrammivditm.ddns.net/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+ server {
+    if ($host = kittigrammivditm.ddns.net) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name kittigrammivditm.ddns.net;
+    listen 80;
+    return 404; # managed by Certbot
+
+
+}
