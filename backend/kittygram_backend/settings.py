@@ -5,7 +5,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-KEY = os.getenv('KEY')
+KEY = os.getenv('KEY', default='**')
 IP = os.getenv('IP')
 LOCAL_SERVER_URL = os.getenv('LOCAL_SERVER_URL')
 LOCAL_SERVER_NAME = os.getenv('LOCAL_SERVER_NAME')
